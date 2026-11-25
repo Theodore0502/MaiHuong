@@ -9,7 +9,7 @@
   <!-- Google Fonts: Classical Serif & Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Preload core assets for instant rendering -->
   <link rel="preload" as="image" href="assets/b1.webp" type="image/webp" fetchpriority="high" />
@@ -20,14 +20,75 @@
 </head>
 <body>
 
-  <!-- Bố cục 2 phần: Bên trái là Nội dung, Bên phải là Khung tranh 2.5D -->
+  <!-- Bố cục song liên đối xứng (Diptych Layout) -->
   <main class="split-layout">
     
-    <!-- CỘT BÊN TRÁI: ĐOẠN THƠ CHÍNH GIỮA -->
+    <!-- CỘT BÊN TRÁI: KHUNG THƠ MỸ THUẬT ĐỐI XỨNG ĐỒNG ĐIỆU VỚI TRANH -->
     <section class="content-panel">
-      <div class="poem-wrapper">
-        <p class="poem-line">“Ngày anh thấy được em, trời chao mình nắng đổ</p>
-        <p class="poem-line">Em trác tuyệt như hoa, đẹp tựa sớm mai hồng”</p>
+      <div class="poetry-card-frame">
+        <!-- Viền gương kim loại kép đồng bộ với khung tranh bên phải -->
+        <div class="mirror-beveled-rim"></div>
+
+        <!-- 4 Góc hoa văn khung gương cổ điển -->
+        <svg class="mirror-corner corner-tl" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 3 67 V 18 C 3 9.72 9.72 3 18 3 H 67" stroke="var(--mirror-gold)" stroke-width="1.8" />
+          <path d="M 8 67 V 22 C 8 14.27 14.27 8 22 8 H 67" stroke="var(--mirror-gold-light)" stroke-width="0.9" stroke-dasharray="2 3" />
+          <path d="M 5 32 C 12 32 24 25 28 14 C 30 8 23 5 19 8 C 15 11 17 16 21 15" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M 32 5 C 32 12 25 24 14 28 C 8 30 5 23 8 19 C 11 15 16 17 15 21" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+          <circle cx="18" cy="18" r="3.2" fill="var(--mirror-gold)" />
+          <circle cx="18" cy="18" r="1.2" fill="#ffffff" />
+          <circle cx="5" cy="5" r="1.8" fill="var(--mirror-gold)" />
+        </svg>
+
+        <svg class="mirror-corner corner-tr" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 3 67 V 18 C 3 9.72 9.72 3 18 3 H 67" stroke="var(--mirror-gold)" stroke-width="1.8" />
+          <path d="M 8 67 V 22 C 8 14.27 14.27 8 22 8 H 67" stroke="var(--mirror-gold-light)" stroke-width="0.9" stroke-dasharray="2 3" />
+          <path d="M 5 32 C 12 32 24 25 28 14 C 30 8 23 5 19 8 C 15 11 17 16 21 15" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M 32 5 C 32 12 25 24 14 28 C 8 30 5 23 8 19 C 11 15 16 17 15 21" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+          <circle cx="18" cy="18" r="3.2" fill="var(--mirror-gold)" />
+          <circle cx="18" cy="18" r="1.2" fill="#ffffff" />
+          <circle cx="5" cy="5" r="1.8" fill="var(--mirror-gold)" />
+        </svg>
+
+        <svg class="mirror-corner corner-bl" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 3 67 V 18 C 3 9.72 9.72 3 18 3 H 67" stroke="var(--mirror-gold)" stroke-width="1.8" />
+          <path d="M 8 67 V 22 C 8 14.27 14.27 8 22 8 H 67" stroke="var(--mirror-gold-light)" stroke-width="0.9" stroke-dasharray="2 3" />
+          <path d="M 5 32 C 12 32 24 25 28 14 C 30 8 23 5 19 8 C 15 11 17 16 21 15" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M 32 5 C 32 12 25 24 14 28 C 8 30 5 23 8 19 C 11 15 16 17 15 21" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+          <circle cx="18" cy="18" r="3.2" fill="var(--mirror-gold)" />
+          <circle cx="18" cy="18" r="1.2" fill="#ffffff" />
+          <circle cx="5" cy="5" r="1.8" fill="var(--mirror-gold)" />
+        </svg>
+
+        <svg class="mirror-corner corner-br" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 3 67 V 18 C 3 9.72 9.72 3 18 3 H 67" stroke="var(--mirror-gold)" stroke-width="1.8" />
+          <path d="M 8 67 V 22 C 8 14.27 14.27 8 22 8 H 67" stroke="var(--mirror-gold-light)" stroke-width="0.9" stroke-dasharray="2 3" />
+          <path d="M 5 32 C 12 32 24 25 28 14 C 30 8 23 5 19 8 C 15 11 17 16 21 15" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M 32 5 C 32 12 25 24 14 28 C 8 30 5 23 8 19 C 11 15 16 17 15 21" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+          <circle cx="18" cy="18" r="3.2" fill="var(--mirror-gold)" />
+          <circle cx="18" cy="18" r="1.2" fill="#ffffff" />
+          <circle cx="5" cy="5" r="1.8" fill="var(--mirror-gold)" />
+        </svg>
+
+        <!-- Điểm nhấn vòm gương nhẹ nhàng trên và dưới -->
+        <svg class="mirror-crest crest-top" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 5 10 Q 30 2 50 14 Q 70 2 95 10" stroke="var(--mirror-gold)" stroke-width="1.2" />
+          <circle cx="50" cy="6" r="2.5" fill="var(--mirror-gold)" />
+        </svg>
+        <svg class="mirror-crest crest-bottom" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 5 10 Q 30 2 50 14 Q 70 2 95 10" stroke="var(--mirror-gold)" stroke-width="1.2" />
+          <circle cx="50" cy="6" r="2.5" fill="var(--mirror-gold)" />
+        </svg>
+
+        <!-- Nội dung đoạn thơ nằm chính giữa khung -->
+        <div class="poetry-content">
+          <div class="poem-ornament">✦ ✦ ✦</div>
+          <div class="poem-wrapper">
+            <p class="poem-line">“Ngày anh thấy được em, trời chao mình nắng đổ</p>
+            <p class="poem-line">Em trác tuyệt như hoa, đẹp tựa sớm mai hồng”</p>
+          </div>
+          <div class="poem-ornament">✦ ✦ ✦</div>
+        </div>
       </div>
     </section>
 

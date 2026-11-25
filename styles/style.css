@@ -6,10 +6,10 @@
   --mirror-gold: #c5a059;
   --mirror-gold-light: rgba(197, 160, 89, 0.45);
   --mirror-gold-soft: rgba(197, 160, 89, 0.22);
-  --card-bg: rgba(250, 248, 245, 0.7);
+  --card-bg: rgba(253, 252, 250, 0.95);
   --card-border: rgba(197, 160, 89, 0.25);
   --stage-aspect: 2983 / 2000;
-  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-times: "Times New Roman", Times, Georgia, serif;
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -30,7 +30,7 @@ body {
 }
 
 /* ==========================================================================
-   1. SPLIT LAYOUT (NỘI DUNG BÊN TRÁI - KHUNG TRANH BÊN PHẢI)
+   1. DIPTYCH SPLIT LAYOUT (BỘ ĐÔI SONG LIÊN CÂN ĐỐI)
    ========================================================================== */
 .split-layout {
   width: 100vw;
@@ -38,23 +38,53 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding: 3vh 4vw;
+  justify-content: center;
+  gap: 3.5vw;
+  padding: 4vh 4vw;
   background: #ffffff;
   position: relative;
   overflow: hidden;
 }
 
-/* CỘT NỘI DUNG BÊN TRÁI (CHÍNH GIỮA VỚI ĐOẠN THƠ) */
+/* CỘT BÊN TRÁI: KHUNG THƠ MỸ THUẬT */
 .content-panel {
-  flex: 0 0 38%;
-  max-width: 520px;
-  height: 100%;
+  flex: 0 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 2.5vw;
   z-index: 10;
+}
+
+.poetry-card-frame {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  max-width: 36vw;
+  max-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: 4px;
+  box-shadow: 0 16px 45px rgba(26, 30, 36, 0.05);
+  padding: 40px 30px;
+}
+
+.poetry-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  z-index: 1;
+}
+
+.poem-ornament {
+  font-size: 0.72rem;
+  color: var(--mirror-gold);
+  letter-spacing: 0.35em;
+  opacity: 0.75;
 }
 
 .poem-wrapper {
@@ -63,25 +93,27 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .poem-line {
-  font-family: "Times New Roman", Times, Georgia, serif;
-  font-size: 1.45rem;
+  font-family: var(--font-times);
+  font-size: 1.35rem;
   line-height: 1.85;
   font-style: italic;
   font-weight: 500;
   color: #8c6239; /* Nâu vàng đất (Earthy golden brown) */
-  letter-spacing: 0.03em;
+  letter-spacing: 0.025em;
   text-align: center;
+  white-space: nowrap; /* Giữ câu thơ nguyên vẹn 1 dòng không bị ngắt cụt */
 }
 
 /* ==========================================================================
-   2. STAGE PANEL & MIRROR FRAME (CỘT BÊN PHẢI VỚI KHUNG GƯƠNG CHỮ NHẬT)
+   2. CỘT BÊN PHẢI: KHUNG TRANH 2.5D
    ========================================================================== */
 .stage-panel {
   flex: 1;
+  max-width: 60vw;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -92,7 +124,7 @@ body {
 .parallax-stage-wrapper {
   position: relative;
   max-width: 100%;
-  max-height: 90vh;
+  max-height: 86vh;
   aspect-ratio: var(--stage-aspect);
   display: flex;
   justify-content: center;
@@ -182,7 +214,7 @@ body {
 .layer-ssf1 { z-index: 41; pointer-events: none; }
 
 /* ==========================================================================
-   3. MIRROR FRAME OVERLAY (KHUNG GƯƠNG HOA VĂN MỸ THUẬT VỪA KHÍT TRANH)
+   3. MIRROR FRAME OVERLAY (KHUNG GƯƠNG HOA VĂN MỸ THUẬT ĐỒNG BỘ 2 BÊN)
    ========================================================================== */
 .mirror-frame-overlay {
   position: absolute;
@@ -199,6 +231,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 4px;
+  pointer-events: none;
   box-shadow: 
     inset 0 0 0 1.2px var(--mirror-gold),
     inset 0 0 0 4.5px #ffffff,
@@ -238,30 +271,36 @@ body {
 /* ==========================================================================
    4. RESPONSIVE DESIGN (TABLET & MOBILE)
    ========================================================================== */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   body {
     overflow-y: auto;
   }
   .split-layout {
-    flex-direction: column-reverse;
+    flex-direction: column;
     height: auto;
     min-height: 100vh;
-    padding: 24px 20px;
-    gap: 28px;
-  }
-  .content-panel {
-    flex: none;
-    max-width: 100%;
-    padding-right: 0;
+    padding: 30px 20px;
+    gap: 30px;
   }
   .stage-panel {
-    flex: none;
+    max-width: 100%;
     width: 100%;
   }
   .parallax-stage-wrapper {
-    max-height: 70vh;
+    max-height: 65vh;
   }
-  .character-title {
-    font-size: 2.8rem;
+  .content-panel {
+    width: 100%;
+  }
+  .poetry-card-frame {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    min-height: 220px;
+    padding: 30px 20px;
+  }
+  .poem-line {
+    font-size: 1.15rem;
+    white-space: normal;
   }
 }
