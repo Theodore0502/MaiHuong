@@ -90,27 +90,27 @@ function initParallaxEngine() {
     // 1. Cluster BG: Subtle reverse translation for infinite depth
     const bgX = (x * -14).toFixed(1);
     const bgY = (y * -8).toFixed(1);
-    if (clusterBg) clusterBg.style.transform = `translate(${bgX}px, ${bgY}px)`;
+    if (clusterBg) clusterBg.style.transform = `translate3d(${bgX}px, ${bgY}px, 0)`;
 
-    // 2. Cluster MID: Medium forward translation (Focuses on Mai Huong)
-    const midX = (x * 16).toFixed(1);
-    const midY = (y * 10).toFixed(1);
-    if (clusterMid) clusterMid.style.transform = `translate(${midX}px, ${midY}px)`;
+    // 2. Cluster MID (Nhân vật C1 & C1_1): Làm tròn pixel nguyên (Math.round) & translate3d để triệt tiêu hoàn toàn mờ sub-pixel
+    const midX = Math.round(x * 12);
+    const midY = Math.round(y * 7);
+    if (clusterMid) clusterMid.style.transform = `translate3d(${midX}px, ${midY}px, 0)`;
 
-    // 3. Cluster FG (Bộ F: F1, F2, F3)
+    // 3. Cluster FG (Bộ F: F0, F1, F2, F3)
     const fgX = (x * 28).toFixed(1);
     const fgY = (y * 18).toFixed(1);
-    if (clusterFg) clusterFg.style.transform = `translate(${fgX}px, ${fgY}px)`;
+    if (clusterFg) clusterFg.style.transform = `translate3d(${fgX}px, ${fgY}px, 0)`;
 
     // 4. Cluster SF: Tách riêng độc lập khỏi bộ F, độ sâu cận cảnh cao hơn
     const sfX = (x * 38).toFixed(1);
     const sfY = (y * 24).toFixed(1);
-    if (clusterSf) clusterSf.style.transform = `translate(${sfX}px, ${sfY}px)`;
+    if (clusterSf) clusterSf.style.transform = `translate3d(${sfX}px, ${sfY}px, 0)`;
 
     // 5. Cluster TOP: Lớp SSF1 trên cùng
     const topX = (x * 42).toFixed(1);
     const topY = (y * 26).toFixed(1);
-    if (clusterTop) clusterTop.style.transform = `translate(${topX}px, ${topY}px)`;
+    if (clusterTop) clusterTop.style.transform = `translate3d(${topX}px, ${topY}px, 0)`;
   }
 
   window.addEventListener('mousemove', onMouseMove, { passive: true });
