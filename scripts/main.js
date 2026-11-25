@@ -13,6 +13,7 @@ function initParallaxEngine() {
   const stageWrapper = document.getElementById('stage-wrapper');
   const clusterBg = document.getElementById('cluster-bg');
   const clusterMid = document.getElementById('cluster-mid');
+  const clusterC1_1 = document.getElementById('cluster-c1_1');
   const clusterFg = document.getElementById('cluster-fg');
   const clusterSf = document.getElementById('cluster-sf');
   const clusterTop = document.getElementById('cluster-top');
@@ -94,10 +95,15 @@ function initParallaxEngine() {
     const bgY = (y * -8).toFixed(1);
     if (clusterBg) clusterBg.style.transform = `translate3d(${bgX}px, ${bgY}px, 0)`;
 
-    // 2. Cluster MID (Nhân vật C1 & C1_1): Làm tròn pixel nguyên (Math.round) & translate3d để triệt tiêu hoàn toàn mờ sub-pixel
+    // 2. Cluster MID (Nhân vật C1): Làm tròn pixel nguyên (Math.round) & translate3d để triệt tiêu hoàn toàn mờ sub-pixel
     const midX = Math.round(x * 12);
     const midY = Math.round(y * 7);
     if (clusterMid) clusterMid.style.transform = `translate3d(${midX}px, ${midY}px, 0)`;
+
+    // 2.1 Cluster C1_1 (Phụ kiện C1_1 tách độc lập khỏi C1)
+    const c1_1X = Math.round(x * 14);
+    const c1_1Y = Math.round(y * 8);
+    if (clusterC1_1) clusterC1_1.style.transform = `translate3d(${c1_1X}px, ${c1_1Y}px, 0)`;
 
     // 3. Cluster FG (Bộ F: F0, F1, F2, F3)
     const fgX = (x * 28).toFixed(1);
