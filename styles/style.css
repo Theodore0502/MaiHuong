@@ -45,160 +45,36 @@ body {
   overflow: hidden;
 }
 
-/* CỘT NỘI DUNG BÊN TRÁI */
+/* CỘT NỘI DUNG BÊN TRÁI (CHÍNH GIỮA VỚI ĐOẠN THƠ) */
 .content-panel {
   flex: 0 0 38%;
   max-width: 520px;
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  padding-right: 2.5vw;
+  align-items: center;
+  padding: 0 2.5vw;
   z-index: 10;
 }
 
-.content-inner {
+.poem-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-/* Header nội dung */
-.character-header {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.character-seal {
-  display: inline-flex;
+  justify-content: center;
   align-items: center;
+  text-align: center;
   gap: 8px;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  color: var(--mirror-gold);
-  font-weight: 600;
-  text-transform: uppercase;
 }
 
-.seal-gem {
-  font-size: 0.65rem;
-}
-
-.character-title {
-  font-family: var(--font-serif);
-  font-size: 3.6rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #1a1e24;
-  line-height: 1.05;
-}
-
-.character-subtitle {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
+.poem-line {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 1.45rem;
+  line-height: 1.85;
+  font-style: italic;
   font-weight: 500;
-}
-
-.divider-gold {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.divider-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, rgba(197, 160, 89, 0.45), transparent);
-}
-
-.divider-line:last-child {
-  background: linear-gradient(to left, rgba(197, 160, 89, 0.45), transparent);
-}
-
-.divider-gem {
-  font-size: 0.65rem;
-  color: var(--mirror-gold);
-}
-
-/* Thẻ tiểu sử & bối cảnh */
-.lore-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 6px;
-  padding: 18px 20px;
-  box-shadow: 0 4px 16px rgba(197, 160, 89, 0.06);
-}
-
-.lore-heading {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #2b3038;
-  letter-spacing: 0.04em;
-  margin-bottom: 8px;
-}
-
-.lore-text {
-  font-size: 0.92rem;
-  line-height: 1.7;
-  color: var(--text-subtle);
-  letter-spacing: 0.02em;
-}
-
-/* Lưới thông số */
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px 14px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-left: 2px solid var(--mirror-gold);
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-}
-
-.stat-label {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-}
-
-.stat-value {
-  font-size: 0.92rem;
-  color: #1a1e24;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-/* Gợi ý tương tác footer */
-.content-footer {
-  padding-top: 4px;
-}
-
-.hint-text {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.hint-icon {
-  color: var(--mirror-gold);
-  font-size: 0.7rem;
+  color: #8c6239; /* Nâu vàng đất (Earthy golden brown) */
+  letter-spacing: 0.03em;
+  text-align: center;
 }
 
 /* ==========================================================================
