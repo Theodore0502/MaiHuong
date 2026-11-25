@@ -30,6 +30,180 @@ body {
 }
 
 /* ==========================================================================
+   0. OPENING SCREEN & SPLIT SCREEN TRANSITION
+   ========================================================================== */
+.opening-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+/* Hai cánh cửa trượt sang 2 bên */
+.opening-shutter {
+  position: absolute;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  background-color: #ffffff;
+  transition: transform 1.25s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+
+.shutter-left {
+  left: 0;
+  transform: translateX(0);
+}
+
+.shutter-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+/* Đường chỉ viền vàng cổ điển giữa 2 mép cửa */
+.shutter-rim-gold {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: linear-gradient(to bottom, transparent 4%, var(--mirror-gold) 15%, var(--mirror-gold) 85%, transparent 96%);
+  box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
+}
+
+.shutter-left .shutter-rim-gold {
+  right: 0;
+}
+
+.shutter-right .shutter-rim-gold {
+  left: 0;
+}
+
+/* Trạng thái cửa mở: Cánh trái trượt sang trái, cánh phải sang phải */
+.opening-overlay.doors-open .shutter-left {
+  transform: translateX(-100%);
+}
+
+.opening-overlay.doors-open .shutter-right {
+  transform: translateX(100%);
+}
+
+/* Cụm trung tâm */
+.opening-center-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1010;
+  pointer-events: auto;
+}
+
+/* Nút Play hình tam giác */
+.opening-play-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.play-btn-circle {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 1.5px solid var(--mirror-gold);
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.18), inset 0 0 0 4px #ffffff, inset 0 0 0 5.5px var(--mirror-gold-soft);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+}
+
+.play-triangle-svg {
+  width: 28px;
+  height: 28px;
+  margin-left: 3px;
+  transition: transform 0.3s ease;
+}
+
+.play-btn-caption {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.22em;
+  color: var(--mirror-gold);
+  font-weight: 600;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.opening-play-btn:hover .play-btn-circle {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(197, 160, 89, 0.35), inset 0 0 0 4px #ffffff, inset 0 0 0 6px var(--mirror-gold);
+}
+
+.opening-play-btn:hover .play-triangle-svg {
+  transform: scale(1.08);
+}
+
+.opening-play-btn:hover .play-btn-caption {
+  opacity: 1;
+  letter-spacing: 0.26em;
+}
+
+.opening-play-btn.fade-out {
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+}
+
+/* Bông hoa xoay tròn ở giữa */
+.opening-flower-box {
+  display: none;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.opening-flower-box.spinning {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.opening-flower-svg {
+  width: 120px;
+  height: 120px;
+  animation: flower-spin 2s linear infinite;
+  filter: drop-shadow(0 4px 20px rgba(197, 160, 89, 0.25));
+}
+
+@keyframes flower-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.opening-flower-box.flower-fade {
+  opacity: 0;
+  transform: scale(1.25);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* ==========================================================================
    1. DIPTYCH SPLIT LAYOUT (BỘ ĐÔI SONG LIÊN CÂN ĐỐI)
    ========================================================================== */
 .split-layout {

@@ -20,6 +20,63 @@
 </head>
 <body>
 
+  <!-- ========================================================================
+       OPENING SCREEN: NỀN TRẮNG, NÚT PLAY, HOA XOAY & MÀN HÌNH SPLIT 2 BÊN
+       ======================================================================== -->
+  <div id="opening-screen" class="opening-overlay">
+    <!-- Cánh cửa trái -->
+    <div class="opening-shutter shutter-left">
+      <div class="shutter-rim-gold"></div>
+    </div>
+    <!-- Cánh cửa phải -->
+    <div class="opening-shutter shutter-right">
+      <div class="shutter-rim-gold"></div>
+    </div>
+
+    <!-- Cụm trung tâm -->
+    <div class="opening-center-stage">
+      <!-- 1. Nút Play hình tam giác ban đầu -->
+      <button class="opening-play-btn" id="opening-play-btn" aria-label="Bắt đầu khám phá">
+        <div class="play-btn-circle">
+          <svg class="play-triangle-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 8.5 5.5 L 18.5 12 L 8.5 18.5 Z" fill="var(--mirror-gold)" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span class="play-btn-caption">✦ BẮT ĐẦU ✦</span>
+      </button>
+
+      <!-- 2. Bông hoa xoay tròn ở giữa sau khi bấm Play -->
+      <div class="opening-flower-box" id="opening-flower-box" aria-hidden="true">
+        <svg class="opening-flower-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="54" stroke="var(--mirror-gold-light)" stroke-width="1" stroke-dasharray="3 4" />
+          <circle cx="60" cy="60" r="48" stroke="var(--mirror-gold)" stroke-width="0.8" opacity="0.6" />
+          <!-- 8 Cánh hoa đối xứng thanh tao -->
+          <g class="flower-petals-group" stroke="var(--mirror-gold)" stroke-width="1.4" fill="rgba(197, 160, 89, 0.08)">
+            <path d="M 60 60 C 50 42 50 20 60 14 C 70 20 70 42 60 60 Z" />
+            <path d="M 60 60 C 50 42 50 20 60 14 C 70 20 70 42 60 60 Z" transform="rotate(45 60 60)" />
+            <path d="M 60 60 C 50 42 50 20 60 14 C 70 20 70 42 60 60 Z" transform="rotate(90 60 60)" />
+            <path d="M 60 60 C 50 42 50 20 60 14 C 70 20 70 42 60 60 Z" transform="rotate(135 60 60)" />
+            <path d="M 60 60 C 50 42 50 20 60 14 C 70 20 70 42 60 60 Z" transform="rotate(180 60 60)" />
+            <path d="M 60 60 C 50 42 50 20 60 14 C 70 20 70 42 60 60 Z" transform="rotate(225 60 60)" />
+            <path d="M 60 60 C 50 42 50 20 60 14 C 70 20 70 42 60 60 Z" transform="rotate(270 60 60)" />
+            <path d="M 60 60 C 50 42 50 20 60 14 C 70 20 70 42 60 60 Z" transform="rotate(315 60 60)" />
+          </g>
+          <!-- Nhụy hoa mạ vàng ở tâm -->
+          <circle cx="60" cy="60" r="10" fill="var(--mirror-gold)" />
+          <circle cx="60" cy="60" r="4.5" fill="#ffffff" />
+          <circle cx="60" cy="46" r="1.5" fill="var(--mirror-gold)" />
+          <circle cx="70" cy="50" r="1.5" fill="var(--mirror-gold)" />
+          <circle cx="74" cy="60" r="1.5" fill="var(--mirror-gold)" />
+          <circle cx="70" cy="70" r="1.5" fill="var(--mirror-gold)" />
+          <circle cx="60" cy="74" r="1.5" fill="var(--mirror-gold)" />
+          <circle cx="50" cy="70" r="1.5" fill="var(--mirror-gold)" />
+          <circle cx="46" cy="60" r="1.5" fill="var(--mirror-gold)" />
+          <circle cx="50" cy="50" r="1.5" fill="var(--mirror-gold)" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
   <!-- Bố cục song liên đối xứng (Diptych Layout) -->
   <main class="split-layout">
     

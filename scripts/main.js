@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initOpeningFlow();
   initParallaxEngine();
   initSecurityShield();
 });
@@ -210,4 +211,41 @@ function initSecurityShield() {
       triggerProtection(false);
     }
   }, 1000);
+}
+
+/* ==========================================================================
+   OPENING CONTROLLER: PLAY BUTTON -> ROTATING FLOWER -> SPLIT SCREEN
+   ========================================================================== */
+function initOpeningFlow() {
+  const openingScreen = document.getElementById('opening-screen');
+  const playBtn = document.getElementById('opening-play-btn');
+  const flowerBox = document.getElementById('opening-flower-box');
+
+  if (!openingScreen || !playBtn || !flowerBox) return;
+
+  playBtn.addEventListener('click', () => {
+    // 1. Nút play mờ và thu nhỏ dần
+    playBtn.classList.add('fade-out');
+
+    // 2. Hiển thị bông hoa xoay tròn ở chính giữa
+    setTimeout(() => {
+      playBtn.style.display = 'none';
+      flowerBox.classList.add('spinning');
+    }, 320);
+
+    // 3. Sau khi bông hoa xoay ngắm nhìn (khoảng 1.5s), bông hoa nở tan biến
+    setTimeout(() => {
+      flowerBox.classList.add('flower-fade');
+    }, 1800);
+
+    // 4. Màn hình split làm 2 trượt sang 2 bên
+    setTimeout(() => {
+      openingScreen.classList.add('doors-open');
+    }, 2200);
+
+    // 5. Kết thúc hiệu ứng, loại bỏ opening overlay để thao tác bình thường
+    setTimeout(() => {
+      openingScreen.style.display = 'none';
+    }, 3500);
+  });
 }
