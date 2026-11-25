@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initParallaxEngine();
+  initSecurityShield();
 });
 
 function initParallaxEngine() {
@@ -129,4 +130,105 @@ function initParallaxEngine() {
 
   // Initial trigger
   startLoop();
+}
+
+/* ==========================================================================
+   SECURITY & ASSET PROTECTION CONTROLLER
+   1. Disable right-click context menu
+   2. Disable drag & drop of visual layers
+   3. Intercept DevTools & inspection keyboard shortcuts
+   4. DevTools Detection & Auto-Blanking (Hides art when DevTools is opened)
+   5. Debugger Trapping (Freezes sources / console when inspected)
+   ========================================================================== */
+function initSecurityShield() {
+  // 1. Chặn chuột phải trên toàn bộ trang
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    return false;
+  }, { capture: true });
+
+  // 2. Chặn kéo thả hình ảnh
+  document.addEventListener('dragstart', (e) => {
+    e.preventDefault();
+    return false;
+  }, { capture: true });
+
+  // 3. Khóa toàn bộ phím tắt mở DevTools, View Source, Save Page
+  window.addEventListener('keydown', (e) => {
+    // F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+    // Ctrl + Shift + I (Inspect) / Ctrl + Shift + J (Console) / Ctrl + Shift + C (Element picker)
+    if (e.ctrlKey && e.shiftKey) {
+      const k = e.key.toLowerCase();
+      if (k === 'i' || k === 'j' || k === 'c' || e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    }
+    // Ctrl + U (View Source)
+    if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+    // Ctrl + S (Save Page)
+    if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  }, { capture: true });
+
+  // 4. Phát hiện DevTools mở (Window Size Delta & Console Getter)
+  let isDevToolsOpen = false;
+
+  function triggerProtection(active) {
+    if (active === isDevToolsOpen) return;
+    isDevToolsOpen = active;
+    if (isDevToolsOpen) {
+      document.body.classList.add('devtools-active');
+    } else {
+      document.body.classList.remove('devtools-active');
+    }
+  }
+
+  function detectDevToolsSize() {
+    const threshold = 160;
+    const isDocked = (window.outerWidth - window.innerWidth > threshold) || 
+                     (window.outerHeight - window.innerHeight > threshold);
+    if (isDocked) {
+      triggerProtection(true);
+    } else if (isDevToolsOpen) {
+      triggerProtection(false);
+    }
+  }
+
+  // Bẫy console getter (bắt được cả khi DevTools mở ở cửa sổ riêng biệt)
+  const probe = /./;
+  probe.toString = function() {
+    triggerProtection(true);
+    return '';
+  };
+
+  setInterval(() => {
+    detectDevToolsSize();
+    // In thăm dò console (nếu DevTools mở sẽ kích hoạt probe.toString)
+    console.log('%c', probe);
+  }, 400);
+
+  window.addEventListener('resize', detectDevToolsSize, { passive: true });
+
+  // 5. Debugger Loop: Làm đơ tab Console/Sources khi DevTools được mở
+  setInterval(() => {
+    if (document.body.classList.contains('devtools-active')) {
+      (function() {
+        return false;
+      }['constructor']('debugger')());
+    }
+  }, 250);
 }
