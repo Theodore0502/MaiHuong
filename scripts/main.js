@@ -91,8 +91,8 @@ function initParallaxEngine() {
     const dx = targetX - currentX;
     const dy = targetY - currentY;
 
-    // Auto-sleep when motion converges to destination (saves CPU/GPU)
-    if (Math.abs(dx) < 0.0003 && Math.abs(dy) < 0.0003) {
+    // Auto-sleep khi chuyển động hội tụ tới đích (tiết kiệm CPU/GPU)
+    if (Math.abs(dx) < 0.0008 && Math.abs(dy) < 0.0008) {
       currentX = targetX;
       currentY = targetY;
       applyTransform(currentX, currentY);
@@ -100,59 +100,97 @@ function initParallaxEngine() {
       return;
     }
 
-    // Lerp smoothing
-    currentX += dx * 0.08;
-    currentY += dy * 0.08;
+    // Lerp smoothing tối ưu 60 - 120 FPS
+    currentX += dx * 0.09;
+    currentY += dy * 0.09;
     applyTransform(currentX, currentY);
 
     requestAnimationFrame(updateParallax);
   }
 
+  // Bộ nhớ đệm tọa độ frame trước: Chỉ ghi style.transform khi giá trị pixel thực sự thay đổi
+  let prevB1X, prevB1Y;
+  let prevB2X, prevB2Y;
+  let prevB3X, prevB3Y;
+  let prevB4X, prevB4Y;
+  let prevMidX, prevMidY;
+  let prevC1_1X, prevC1_1Y;
+  let prevFgX, prevFgY;
+  let prevSfX, prevSfY;
+  let prevTopX, prevTopY;
+
   function applyTransform(x, y) {
     // 1.1 Cluster B1: Bầu trời xa vô cực - dịch chuyển ngược chiều sâu nhất
-    const b1X = (x * -24).toFixed(1);
-    const b1Y = (y * -14).toFixed(1);
-    if (clusterB1) clusterB1.style.transform = `translate3d(${b1X}px, ${b1Y}px, 0)`;
+    const b1X = Math.round(x * -24);
+    const b1Y = Math.round(y * -14);
+    if (clusterB1 && (b1X !== prevB1X || b1Y !== prevB1Y)) {
+      clusterB1.style.transform = `translate3d(${b1X}px,${b1Y}px,0)`;
+      prevB1X = b1X; prevB1Y = b1Y;
+    }
 
     // 1.2 Cluster B2 (B2, B2_1): Kiến trúc viễn cảnh - tách mạnh khỏi B1
-    const b2X = (x * -12).toFixed(1);
-    const b2Y = (y * -7).toFixed(1);
-    if (clusterB2) clusterB2.style.transform = `translate3d(${b2X}px, ${b2Y}px, 0)`;
+    const b2X = Math.round(x * -12);
+    const b2Y = Math.round(y * -7);
+    if (clusterB2 && (b2X !== prevB2X || b2Y !== prevB2Y)) {
+      clusterB2.style.transform = `translate3d(${b2X}px,${b2Y}px,0)`;
+      prevB2X = b2X; prevB2Y = b2Y;
+    }
 
     // 1.3 Cluster B3: Cảnh quan trung hậu - tách độc lập
-    const b3X = (x * -2).toFixed(1);
-    const b3Y = (y * -1).toFixed(1);
-    if (clusterB3) clusterB3.style.transform = `translate3d(${b3X}px, ${b3Y}px, 0)`;
+    const b3X = Math.round(x * -2);
+    const b3Y = Math.round(y * -1);
+    if (clusterB3 && (b3X !== prevB3X || b3Y !== prevB3Y)) {
+      clusterB3.style.transform = `translate3d(${b3X}px,${b3Y}px,0)`;
+      prevB3X = b3X; prevB3Y = b3Y;
+    }
 
     // 1.4 Cluster B4: Cảnh quan trung cảnh sau - tách độc lập khỏi B3
-    const b4X = (x * 5).toFixed(1);
-    const b4Y = (y * 3).toFixed(1);
-    if (clusterB4) clusterB4.style.transform = `translate3d(${b4X}px, ${b4Y}px, 0)`;
+    const b4X = Math.round(x * 5);
+    const b4Y = Math.round(y * 3);
+    if (clusterB4 && (b4X !== prevB4X || b4Y !== prevB4Y)) {
+      clusterB4.style.transform = `translate3d(${b4X}px,${b4Y}px,0)`;
+      prevB4X = b4X; prevB4Y = b4Y;
+    }
 
-    // 2. Cluster MID (Nhân vật C1): Làm tròn pixel nguyên (Math.round) & translate3d để triệt tiêu hoàn toàn mờ sub-pixel
+    // 2. Cluster MID (Nhân vật C1): Làm tròn pixel nguyên (Math.round) & translate3d triệt tiêu mờ sub-pixel
     const midX = Math.round(x * 12);
     const midY = Math.round(y * 7);
-    if (clusterMid) clusterMid.style.transform = `translate3d(${midX}px, ${midY}px, 0)`;
+    if (clusterMid && (midX !== prevMidX || midY !== prevMidY)) {
+      clusterMid.style.transform = `translate3d(${midX}px,${midY}px,0)`;
+      prevMidX = midX; prevMidY = midY;
+    }
 
     // 2.1 Cluster C1_1 (Phụ kiện C1_1 tách độc lập khỏi C1)
     const c1_1X = Math.round(x * 14);
     const c1_1Y = Math.round(y * 8);
-    if (clusterC1_1) clusterC1_1.style.transform = `translate3d(${c1_1X}px, ${c1_1Y}px, 0)`;
+    if (clusterC1_1 && (c1_1X !== prevC1_1X || c1_1Y !== prevC1_1Y)) {
+      clusterC1_1.style.transform = `translate3d(${c1_1X}px,${c1_1Y}px,0)`;
+      prevC1_1X = c1_1X; prevC1_1Y = c1_1Y;
+    }
 
     // 3. Cluster FG (Bộ F: F0, F1, F2, F3)
-    const fgX = (x * 28).toFixed(1);
-    const fgY = (y * 18).toFixed(1);
-    if (clusterFg) clusterFg.style.transform = `translate3d(${fgX}px, ${fgY}px, 0)`;
+    const fgX = Math.round(x * 28);
+    const fgY = Math.round(y * 18);
+    if (clusterFg && (fgX !== prevFgX || fgY !== prevFgY)) {
+      clusterFg.style.transform = `translate3d(${fgX}px,${fgY}px,0)`;
+      prevFgX = fgX; prevFgY = fgY;
+    }
 
     // 4. Cluster SF: Tách riêng độc lập khỏi bộ F, độ sâu cận cảnh cao hơn
-    const sfX = (x * 38).toFixed(1);
-    const sfY = (y * 24).toFixed(1);
-    if (clusterSf) clusterSf.style.transform = `translate3d(${sfX}px, ${sfY}px, 0)`;
+    const sfX = Math.round(x * 38);
+    const sfY = Math.round(y * 24);
+    if (clusterSf && (sfX !== prevSfX || sfY !== prevSfY)) {
+      clusterSf.style.transform = `translate3d(${sfX}px,${sfY}px,0)`;
+      prevSfX = sfX; prevSfY = sfY;
+    }
 
     // 5. Cluster TOP: Lớp SSF1 trên cùng
-    const topX = (x * 42).toFixed(1);
-    const topY = (y * 26).toFixed(1);
-    if (clusterTop) clusterTop.style.transform = `translate3d(${topX}px, ${topY}px, 0)`;
+    const topX = Math.round(x * 42);
+    const topY = Math.round(y * 26);
+    if (clusterTop && (topX !== prevTopX || topY !== prevTopY)) {
+      clusterTop.style.transform = `translate3d(${topX}px,${topY}px,0)`;
+      prevTopX = topX; prevTopY = topY;
+    }
   }
 
   // Mouse & Touch Interaction
@@ -291,19 +329,21 @@ function initSecurityShield() {
     }
   }
 
-  // Phương pháp đo độ trễ: Khi DevTools đóng, lệnh debugger chạy trong 0.01ms (không kích hoạt)
-  // Chỉ khi người dùng thực sự mở tab DevTools, trình duyệt mới bị hoãn (t1 - t0 > 100ms)
-  setInterval(() => {
-    const t0 = performance.now();
-    (function() { return false; }["constructor"]("debugger")());
-    const t1 = performance.now();
+  // Phương pháp đo độ trễ: Chỉ chạy trên Desktop (không chạy trên Mobile để tránh drop FPS / jank)
+  const isMobileClient = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (!isMobileClient) {
+    setInterval(() => {
+      const t0 = performance.now();
+      (function() { return false; }["constructor"]("debugger")());
+      const t1 = performance.now();
 
-    if (t1 - t0 > 100) {
-      triggerProtection(true);
-    } else if (isDevToolsOpen) {
-      triggerProtection(false);
-    }
-  }, 1000);
+      if (t1 - t0 > 100) {
+        triggerProtection(true);
+      } else if (isDevToolsOpen) {
+        triggerProtection(false);
+      }
+    }, 2000);
+  }
 }
 
 /* ==========================================================================

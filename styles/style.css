@@ -249,6 +249,7 @@ body {
   justify-content: flex-end;
   padding: 2px 2px 2px 0; /* 2px top, 2px right, 2px down */
   position: relative;
+  contain: layout paint;
 }
 
 .parallax-stage-wrapper {
@@ -263,6 +264,9 @@ body {
   overflow: hidden;
   border-radius: 2px;
   background: #ffffff;
+  contain: layout paint;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Spacer image to lock aspect ratio perfectly */
@@ -276,13 +280,20 @@ body {
   pointer-events: none;
 }
 
-/* Parallax Stage & Clusters */
+/* Parallax Stage & Clusters - GPU Accelerated 60/120 FPS */
 .parallax-stage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  contain: strict;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .art-layer-cluster {
@@ -292,6 +303,12 @@ body {
   height: 112%;
   pointer-events: none;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .cluster-b1  { z-index: 6; }
@@ -304,7 +321,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  will-change: auto;  /* Tránh GPU ép rasterize thành texture độ phân giải thấp */
+  will-change: transform;
 }
 .cluster-c1_1 {
   z-index: 25;        /* Tách riêng độc lập khỏi C1 */
@@ -312,13 +329,13 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  will-change: auto;
+  will-change: transform;
 }
 .cluster-fg  { z-index: 30; }
 .cluster-sf  { z-index: 40; }
 .cluster-top { z-index: 50; }
 
-/* Image Layers */
+/* Image Layers - Hardware accelerated */
 .art-layer {
   position: absolute;
   inset: 0;
@@ -326,6 +343,10 @@ body {
   height: 100%;
   object-fit: fill;
   pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Sharpness & Anti-blur cho riêng nhân vật C1 & C1_1 */
