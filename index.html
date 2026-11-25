@@ -51,12 +51,26 @@
 
     <!-- Cụm trung tâm -->
     <div class="opening-center-stage">
-      <!-- 1. Nút Play tối giản thuần tam giác -->
-      <button class="opening-play-btn" id="opening-play-btn" aria-label="Bắt đầu">
-        <svg class="play-triangle-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 7.5 4.5 L 19.5 12 L 7.5 19.5 Z" fill="var(--mirror-gold)" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linejoin="round" />
-        </svg>
-      </button>
+      <!-- 1. Cụm Play & Gợi ý xoay ngang cho mobile -->
+      <div class="opening-play-wrapper" id="opening-play-wrapper">
+        <button class="opening-play-btn" id="opening-play-btn" aria-label="Bắt đầu">
+          <svg class="play-triangle-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 7.5 4.5 L 19.5 12 L 7.5 19.5 Z" fill="var(--mirror-gold)" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        <!-- Dòng gợi ý dành riêng cho mobile: xoay ngang điện thoại để trọn vẹn hơn nhé -->
+        <div class="opening-mobile-hint" aria-hidden="true">
+          <span class="hint-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+              <rect x="5" y="3" width="14" height="18" rx="2.5" stroke="var(--mirror-gold)" stroke-width="1.6" />
+              <line x1="10" y1="5.5" x2="14" y2="5.5" stroke="var(--mirror-gold)" stroke-width="1.2" stroke-linecap="round" />
+              <circle cx="12" cy="18" r="0.8" fill="var(--mirror-gold)" />
+            </svg>
+          </span>
+          <p class="hint-text">xoay ngang điện thoại để trọn vẹn hơn nhé</p>
+        </div>
+      </div>
 
       <!-- 2. Bông hoa xoay tròn ở giữa sau khi bấm Play -->
       <div class="opening-flower-box" id="opening-flower-box" aria-hidden="true">
