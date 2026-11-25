@@ -232,7 +232,7 @@ body {
   line-height: 1.85;
   font-style: italic;
   font-weight: 700; /* Giữ nguyên độ đậm nét */
-  color: #8c6239;   /* Đổi lại tone màu cũ: Nâu vàng đất ấm áp */
+  color: #a07447;   /* Tone màu nâu vàng ấm áp, nhạt hơn một chút thanh thoát */
   letter-spacing: 0.03em;
   text-align: center;
   white-space: nowrap; /* Giữ câu thơ nguyên vẹn 1 dòng không bị ngắt cụt */
@@ -583,7 +583,7 @@ body.devtools-active .security-warning-overlay {
     font-size: 1.15rem;
     line-height: 1.6;
     font-weight: 700;
-    color: #8c6239;
+    color: #a07447;
     letter-spacing: 0.02em;
     text-align: center;
     margin: 0;
