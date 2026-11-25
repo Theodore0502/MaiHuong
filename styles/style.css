@@ -227,10 +227,11 @@ body {
 .poem-line {
   font-family: var(--font-times);
   font-size: 1.05rem;
-  line-height: 1.8;
+  line-height: 1.85;
   font-style: italic;
-  font-weight: 500;
-  color: #8c6239; /* Nâu vàng đất (Earthy golden brown) */
+  font-weight: 700; /* Nét chữ đậm rõ ràng, sắc sảo */
+  color: #724c27;   /* Màu nâu vàng đất đậm đà, tương phản sắc nét hơn */
+  text-shadow: 0 0 1px rgba(114, 76, 39, 0.25);
   letter-spacing: 0.03em;
   text-align: center;
   white-space: nowrap; /* Giữ câu thơ nguyên vẹn 1 dòng không bị ngắt cụt */
@@ -537,6 +538,7 @@ body.devtools-active .security-warning-overlay {
   }
   .poem-line {
     font-size: 0.95rem;
+    font-weight: 700;
     white-space: normal;
   }
 }
