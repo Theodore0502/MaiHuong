@@ -294,7 +294,9 @@ body {
   will-change: transform;
 }
 
-.cluster-bg  { z-index: 10; }
+.cluster-b1  { z-index: 6; }
+.cluster-b2  { z-index: 10; }
+.cluster-b3  { z-index: 15; }
 .cluster-mid {
   z-index: 20;
   top: 35px;          /* Dịch nhân vật c1 xuống thêm 15px nữa (tổng 35px) */
