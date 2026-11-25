@@ -42,7 +42,7 @@ body {
   overflow: hidden;
 }
 
-/* Hai cánh cửa trượt sang 2 bên */
+/* Hai cánh cửa trượt sang 2 bên (liền mạch thuần trắng, không viền ngăn) */
 .opening-shutter {
   position: absolute;
   top: 0;
@@ -61,24 +61,6 @@ body {
 .shutter-right {
   right: 0;
   transform: translateX(0);
-}
-
-/* Đường chỉ viền vàng cổ điển giữa 2 mép cửa */
-.shutter-rim-gold {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1.5px;
-  background: linear-gradient(to bottom, transparent 4%, var(--mirror-gold) 15%, var(--mirror-gold) 85%, transparent 96%);
-  box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
-}
-
-.shutter-left .shutter-rim-gold {
-  right: 0;
-}
-
-.shutter-right .shutter-rim-gold {
-  left: 0;
 }
 
 /* Trạng thái cửa mở: Cánh trái trượt sang trái, cánh phải sang phải */
