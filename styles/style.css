@@ -296,7 +296,8 @@ body {
 .cluster-bg  { z-index: 10; }
 .cluster-mid {
   z-index: 20;
-  inset: 0;           /* Giữ nguyên 100% kích thước pixel-perfect, không kéo giãn 112% gây mờ */
+  top: 5px;           /* Dịch nhân vật c1 xuống dưới 5px */
+  left: 0;
   width: 100%;
   height: 100%;
   will-change: auto;  /* Tránh GPU ép rasterize thành texture độ phân giải thấp */
