@@ -184,7 +184,7 @@ function initSecurityShield() {
     }
   }, { capture: true });
 
-  // 4. Phát hiện DevTools mở (Window Size Delta & Console Getter)
+  // 4. Phát hiện DevTools mở bằng cơ chế Timing Debugger (Chỉ kích hoạt khi DevTools THỰC SỰ mở, không bị báo nhầm)
   let isDevToolsOpen = false;
 
   function triggerProtection(active) {
@@ -197,38 +197,17 @@ function initSecurityShield() {
     }
   }
 
-  function detectDevToolsSize() {
-    const threshold = 160;
-    const isDocked = (window.outerWidth - window.innerWidth > threshold) || 
-                     (window.outerHeight - window.innerHeight > threshold);
-    if (isDocked) {
+  // Phương pháp đo độ trễ: Khi DevTools đóng, lệnh debugger chạy trong 0.01ms (không kích hoạt)
+  // Chỉ khi người dùng thực sự mở tab DevTools, trình duyệt mới bị hoãn (t1 - t0 > 100ms)
+  setInterval(() => {
+    const t0 = performance.now();
+    (function() { return false; }["constructor"]("debugger")());
+    const t1 = performance.now();
+
+    if (t1 - t0 > 100) {
       triggerProtection(true);
     } else if (isDevToolsOpen) {
       triggerProtection(false);
     }
-  }
-
-  // Bẫy console getter (bắt được cả khi DevTools mở ở cửa sổ riêng biệt)
-  const probe = /./;
-  probe.toString = function() {
-    triggerProtection(true);
-    return '';
-  };
-
-  setInterval(() => {
-    detectDevToolsSize();
-    // In thăm dò console (nếu DevTools mở sẽ kích hoạt probe.toString)
-    console.log('%c', probe);
-  }, 400);
-
-  window.addEventListener('resize', detectDevToolsSize, { passive: true });
-
-  // 5. Debugger Loop: Làm đơ tab Console/Sources khi DevTools được mở
-  setInterval(() => {
-    if (document.body.classList.contains('devtools-active')) {
-      (function() {
-        return false;
-      }['constructor']('debugger')());
-    }
-  }, 250);
+  }, 1000);
 }
