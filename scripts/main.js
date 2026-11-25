@@ -312,33 +312,22 @@ function initSecurityShield() {
 function initOpeningFlow() {
   const openingScreen = document.getElementById('opening-screen');
   const playBtn = document.getElementById('opening-play-btn');
-  const playWrapper = document.getElementById('opening-play-wrapper');
   const flowerBox = document.getElementById('opening-flower-box');
 
-  if (!openingScreen || !flowerBox) return;
+  if (!openingScreen || !playBtn || !flowerBox) return;
 
-  let hasStarted = false;
-
-  function handleStart() {
-    if (hasStarted) return;
-    hasStarted = true;
-
-    // Xin quyền cảm biến con quay hồi chuyển trên iOS 13+ khi người dùng click/touch
+  playBtn.addEventListener('click', () => {
+    // Xin quyền cảm biến con quay hồi chuyển trên iOS 13+ khi người dùng click
     if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
       DeviceOrientationEvent.requestPermission().catch(() => {});
     }
 
-    // 1. Cụm play mờ và thu nhỏ dần
-    if (playWrapper) {
-      playWrapper.classList.add('fade-out');
-    } else if (playBtn) {
-      playBtn.classList.add('fade-out');
-    }
+    // 1. Nút play mờ và thu nhỏ dần
+    playBtn.classList.add('fade-out');
 
     // 2. Hiển thị bông hoa xoay tròn ở chính giữa
     setTimeout(() => {
-      if (playWrapper) playWrapper.style.display = 'none';
-      else if (playBtn) playBtn.style.display = 'none';
+      playBtn.style.display = 'none';
       flowerBox.classList.add('spinning');
     }, 320);
 
@@ -355,14 +344,6 @@ function initOpeningFlow() {
     // 5. Kết thúc hiệu ứng, loại bỏ opening overlay để thao tác bình thường
     setTimeout(() => {
       openingScreen.style.display = 'none';
-      document.body.classList.add('artwork-revealed');
     }, 3500);
-  }
-
-  if (playBtn) {
-    playBtn.addEventListener('click', handleStart);
-  }
-  if (playWrapper) {
-    playWrapper.addEventListener('click', handleStart);
-  }
+  });
 }
