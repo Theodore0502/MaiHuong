@@ -14,13 +14,14 @@ function initParallaxEngine() {
   const clusterB1 = document.getElementById('cluster-b1');
   const clusterB2 = document.getElementById('cluster-b2');
   const clusterB3 = document.getElementById('cluster-b3');
+  const clusterB4 = document.getElementById('cluster-b4');
   const clusterMid = document.getElementById('cluster-mid');
   const clusterC1_1 = document.getElementById('cluster-c1_1');
   const clusterFg = document.getElementById('cluster-fg');
   const clusterSf = document.getElementById('cluster-sf');
   const clusterTop = document.getElementById('cluster-top');
 
-  if (!stageWrapper || !clusterB1 || !clusterB2 || !clusterB3 || !clusterMid || !clusterFg) return;
+  if (!stageWrapper || !clusterB1 || !clusterB2 || !clusterB3 || !clusterB4 || !clusterMid || !clusterFg) return;
 
   let targetX = 0;
   let targetY = 0;
@@ -102,10 +103,15 @@ function initParallaxEngine() {
     const b2Y = (y * -7).toFixed(1);
     if (clusterB2) clusterB2.style.transform = `translate3d(${b2X}px, ${b2Y}px, 0)`;
 
-    // 1.3 Cluster B3 (B3, B4): Cảnh quan trung hậu - tách mạnh khỏi B2 và nằm sau C1
-    const b3X = (x * 2).toFixed(1);
-    const b3Y = (y * 1).toFixed(1);
+    // 1.3 Cluster B3: Cảnh quan trung hậu - tách độc lập
+    const b3X = (x * -2).toFixed(1);
+    const b3Y = (y * -1).toFixed(1);
     if (clusterB3) clusterB3.style.transform = `translate3d(${b3X}px, ${b3Y}px, 0)`;
+
+    // 1.4 Cluster B4: Cảnh quan trung cảnh sau - tách độc lập khỏi B3
+    const b4X = (x * 5).toFixed(1);
+    const b4Y = (y * 3).toFixed(1);
+    if (clusterB4) clusterB4.style.transform = `translate3d(${b4X}px, ${b4Y}px, 0)`;
 
     // 2. Cluster MID (Nhân vật C1): Làm tròn pixel nguyên (Math.round) & translate3d để triệt tiêu hoàn toàn mờ sub-pixel
     const midX = Math.round(x * 12);
