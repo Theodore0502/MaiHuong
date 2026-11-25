@@ -183,7 +183,46 @@ function initSecurityShield() {
       e.stopPropagation();
       return false;
     }
+    // Chặn Zoom phím tắt: Ctrl + (+), Ctrl + (-), Ctrl + 0
+    if (e.ctrlKey && (
+      e.key === '+' || e.key === '=' || 
+      e.key === '-' || e.key === '_' || 
+      e.key === '0' || e.keyCode === 187 || 
+      e.keyCode === 189 || e.keyCode === 107 || 
+      e.keyCode === 109 || e.keyCode === 48 || e.keyCode === 96
+    )) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
   }, { capture: true });
+
+  // 4. Chặn Zoom bằng Ctrl + Lăn chuột (Mouse Wheel Zoom)
+  window.addEventListener('wheel', (e) => {
+    if (e.ctrlKey) {
+      e.preventDefault();
+      return false;
+    }
+  }, { passive: false });
+
+  // 5. Chặn Pinch-to-zoom (Chụm 2 ngón tay phóng to/thu nhỏ trên Touch/Trackpad)
+  document.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches.length > 1) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  document.addEventListener('gesturestart', (e) => {
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('gesturechange', (e) => {
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('gestureend', (e) => {
+    e.preventDefault();
+  }, { passive: false });
 
   // 4. Phát hiện DevTools mở bằng cơ chế Timing Debugger (Chỉ kích hoạt khi DevTools THỰC SỰ mở, không bị báo nhầm)
   let isDevToolsOpen = false;
