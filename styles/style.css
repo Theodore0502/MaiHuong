@@ -1,0 +1,208 @@
+:root {
+  --bg-color: #0d0f12;
+  --panel-bg: rgba(22, 26, 32, 0.75);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --accent-gold: #c5a059;
+  --text-main: #f0f3f6;
+  --text-muted: #8b949e;
+  --stage-aspect: 2983 / 2000;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* Header */
+.header-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(13, 15, 18, 0.85) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.title-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.title-main {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-main);
+}
+
+.title-tag {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(197, 160, 89, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.controls-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  pointer-events: auto;
+}
+
+/* Stage Viewport */
+.viewport-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  position: relative;
+}
+
+.parallax-stage-wrapper {
+  position: relative;
+  max-width: 95vw;
+  max-height: 88vh;
+  aspect-ratio: var(--stage-aspect);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--border-color);
+  background: #000;
+}
+
+/* Spacer image to lock aspect ratio perfectly */
+.art-spacer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--stage-aspect);
+  object-fit: contain;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Parallax Stage & Clusters */
+.parallax-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.art-layer-cluster {
+  position: absolute;
+  inset: -6%; /* Expand 6% on all sides so parallax translation doesn't expose edges */
+  width: 112%;
+  height: 112%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cluster-bg  { z-index: 10; }
+.cluster-mid { z-index: 20; }
+.cluster-fg  { z-index: 30; }
+.cluster-sf  { z-index: 40; }
+.cluster-top { z-index: 50; }
+
+/* Image Layers */
+.art-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+/* Z-indexing within clusters */
+.layer-b1   { z-index: 1; }
+.layer-b2   { z-index: 2; }
+.layer-b2_1 { z-index: 3; }
+.layer-b3   { z-index: 4; }
+.layer-b4   { z-index: 5; }
+
+.layer-c1   { z-index: 10; }
+.layer-c1_1 { z-index: 15; }
+
+.layer-f0   { z-index: 20; }
+.layer-f1   { z-index: 21; }
+.layer-f2   { z-index: 22; }
+.layer-f3   { z-index: 23; }
+
+.layer-sf1  { z-index: 31; }
+.layer-ssf1 { z-index: 41; pointer-events: none; }
+
+/* Ambient Lighting Glow */
+.ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Footer / Stats bar */
+.footer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  background: linear-gradient(to top, rgba(13, 15, 18, 0.85) 0%, transparent 100%);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.layer-indicator {
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.layer-pill {
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
