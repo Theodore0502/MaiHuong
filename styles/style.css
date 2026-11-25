@@ -103,66 +103,37 @@ body {
   pointer-events: auto;
 }
 
-/* Nút Play hình tam giác */
+/* Nút Play thuần tam giác tối giản (không viền tròn, không chữ) */
 .opening-play-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
   background: none;
   border: none;
+  padding: 24px;
   cursor: pointer;
   outline: none;
-  transition: transform 0.35s ease, opacity 0.35s ease;
-}
-
-.play-btn-circle {
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  border: 1.5px solid var(--mirror-gold);
-  background: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.18), inset 0 0 0 4px #ffffff, inset 0 0 0 5.5px var(--mirror-gold-soft);
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
 }
 
 .play-triangle-svg {
-  width: 28px;
-  height: 28px;
-  margin-left: 3px;
-  transition: transform 0.3s ease;
+  width: 54px;
+  height: 54px;
+  filter: drop-shadow(0 4px 16px rgba(197, 160, 89, 0.3));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
 }
 
-.play-btn-caption {
-  font-family: var(--font-sans);
-  font-size: 0.76rem;
-  letter-spacing: 0.22em;
-  color: var(--mirror-gold);
-  font-weight: 600;
-  opacity: 0.85;
-  transition: opacity 0.3s ease, letter-spacing 0.3s ease;
-}
-
-.opening-play-btn:hover .play-btn-circle {
-  transform: scale(1.1);
-  box-shadow: 0 12px 35px rgba(197, 160, 89, 0.35), inset 0 0 0 4px #ffffff, inset 0 0 0 6px var(--mirror-gold);
+.opening-play-btn:hover {
+  transform: scale(1.22);
 }
 
 .opening-play-btn:hover .play-triangle-svg {
-  transform: scale(1.08);
-}
-
-.opening-play-btn:hover .play-btn-caption {
-  opacity: 1;
-  letter-spacing: 0.26em;
+  filter: drop-shadow(0 6px 24px rgba(197, 160, 89, 0.5));
 }
 
 .opening-play-btn.fade-out {
   opacity: 0;
-  transform: scale(0.85);
+  transform: scale(0.75);
   pointer-events: none;
 }
 
