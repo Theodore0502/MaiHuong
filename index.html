@@ -21,6 +21,26 @@
 <body>
 
   <!-- ========================================================================
+       OVERLAY YÊU CẦU XOAY NGANG MÀN HÌNH (PORTRAIT TO LANDSCAPE ROTATE PROMPT)
+       ======================================================================== -->
+  <div class="rotate-device-overlay" id="rotate-device-prompt" aria-hidden="true">
+    <div class="rotate-device-box">
+      <div class="rotate-phone-icon">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect class="phone-body" x="18" y="10" width="28" height="44" rx="5" stroke="#c5a059" stroke-width="2.2" fill="#ffffff" />
+          <line x1="28" y1="15" x2="36" y2="15" stroke="#c5a059" stroke-width="1.8" stroke-linecap="round" />
+          <circle cx="32" cy="48" r="1.6" fill="#c5a059" />
+          <path class="rotate-arrow-curve" d="M 52 28 C 55 35 53 43 47 48 C 41 53 33 54 26 50" stroke="#e0c588" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3" />
+          <path d="M 28 54 L 23 49 L 29 45" stroke="#c5a059" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="rotate-ornament">✦ ✦ ✦</div>
+      <p class="rotate-message">xoay ngang điện thoại để trọn vẹn hơn nhé</p>
+      <div class="rotate-ornament">✦ ✦ ✦</div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        OPENING SCREEN: NỀN TRẮNG, NÚT PLAY, HOA XOAY & MÀN HÌNH SPLIT 2 BÊN
        ======================================================================== -->
   <div id="opening-screen" class="opening-overlay">

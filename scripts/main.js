@@ -47,12 +47,28 @@ function initParallaxEngine() {
     startLoop();
   }
 
-  // Device Orientation for Mobile / Tablet Gyroscope
+  // Device Orientation for Mobile / Tablet Gyroscope (Landscape aware)
   function onDeviceOrientation(e) {
     if (e.gamma === null || e.beta === null) return;
-    // gamma: left-to-right [-90, 90], beta: front-to-back [-180, 180]
-    const normX = Math.max(-1, Math.min(1, e.gamma / 30));
-    const normY = Math.max(-1, Math.min(1, (e.beta - 40) / 30));
+
+    // Kiểm tra góc xoay màn hình (90 độ hoặc -90 độ khi xoay ngang)
+    const angle = (screen.orientation && screen.orientation.angle !== undefined)
+      ? screen.orientation.angle
+      : (window.orientation || 0);
+
+    let xVal = e.gamma;
+    let yVal = e.beta;
+
+    if (angle === 90) {
+      xVal = -e.beta;
+      yVal = e.gamma;
+    } else if (angle === -90 || angle === 270) {
+      xVal = e.beta;
+      yVal = -e.gamma;
+    }
+
+    const normX = Math.max(-1, Math.min(1, xVal / 22));
+    const normY = Math.max(-1, Math.min(1, (yVal - 25) / 22));
 
     targetX = normX;
     targetY = normY;
@@ -139,8 +155,22 @@ function initParallaxEngine() {
     if (clusterTop) clusterTop.style.transform = `translate3d(${topX}px, ${topY}px, 0)`;
   }
 
+  // Mouse & Touch Interaction
   window.addEventListener('mousemove', onMouseMove, { passive: true });
   document.addEventListener('mouseleave', onMouseLeave);
+
+  // Hỗ trợ Touch Drag mượt mà trên Mobile / Tablet
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches.length === 1) {
+      const touch = e.touches[0];
+      const normX = (touch.clientX / window.innerWidth) * 2 - 1;
+      const normY = (touch.clientY / window.innerHeight) * 2 - 1;
+
+      targetX = Math.max(-1, Math.min(1, normX));
+      targetY = Math.max(-1, Math.min(1, normY));
+      startLoop();
+    }
+  }, { passive: true });
 
   if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', onDeviceOrientation, { passive: true });
@@ -287,6 +317,11 @@ function initOpeningFlow() {
   if (!openingScreen || !playBtn || !flowerBox) return;
 
   playBtn.addEventListener('click', () => {
+    // Xin quyền cảm biến con quay hồi chuyển trên iOS 13+ khi người dùng click
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission().catch(() => {});
+    }
+
     // 1. Nút play mờ và thu nhỏ dần
     playBtn.classList.add('fade-out');
 
