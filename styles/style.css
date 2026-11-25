@@ -205,15 +205,15 @@ body {
 .poetry-card-frame {
   position: relative;
   width: 100%;
-  max-width: 440px;
-  min-height: 380px;
+  max-width: 400px;
+  min-height: 320px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: var(--card-bg);
   border-radius: 4px;
   box-shadow: 0 16px 45px rgba(26, 30, 36, 0.05);
-  padding: 36px 20px;
+  padding: 30px 18px;
 }
 
 .poetry-content {
@@ -222,12 +222,12 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 16px;
+  gap: 14px;
   z-index: 1;
 }
 
 .poem-ornament {
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   color: var(--mirror-gold);
   letter-spacing: 0.35em;
   opacity: 0.75;
@@ -239,17 +239,17 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .poem-line {
   font-family: var(--font-times);
-  font-size: 1.25rem;
-  line-height: 1.85;
+  font-size: 1.05rem;
+  line-height: 1.8;
   font-style: italic;
   font-weight: 500;
   color: #8c6239; /* Nâu vàng đất (Earthy golden brown) */
-  letter-spacing: 0.025em;
+  letter-spacing: 0.03em;
   text-align: center;
   white-space: nowrap; /* Giữ câu thơ nguyên vẹn 1 dòng không bị ngắt cụt */
 }
@@ -554,7 +554,7 @@ body.devtools-active .security-warning-overlay {
     padding: 30px 20px;
   }
   .poem-line {
-    font-size: 1.15rem;
+    font-size: 0.95rem;
     white-space: normal;
   }
 }
