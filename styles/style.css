@@ -189,15 +189,17 @@ body {
 .poetry-card-frame {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 440px;
   min-height: 320px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   background: var(--card-bg);
   border-radius: 4px;
   box-shadow: 0 16px 45px rgba(26, 30, 36, 0.05);
-  padding: 30px 18px;
+  padding: 28px 24px;
 }
 
 .poetry-content {
@@ -236,6 +238,59 @@ body {
   letter-spacing: 0.03em;
   text-align: center;
   white-space: nowrap; /* Giữ câu thơ nguyên vẹn 1 dòng không bị ngắt cụt */
+}
+
+/* Kiểu dáng bức thư gửi Mai Hương */
+.letter-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  gap: 12px;
+  color: #a07447;
+  font-family: var(--font-times);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.68;
+}
+
+.letter-salutation {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.letter-greeting {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #8c6035;
+}
+
+.letter-subnames {
+  padding-left: 18px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.letter-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  font-weight: 600;
+}
+
+.letter-signature {
+  text-align: right;
+  margin-top: 4px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #8c6035;
 }
 
 /* ==========================================================================
@@ -678,6 +733,29 @@ body.devtools-active .security-warning-overlay {
     font-size: clamp(0.72rem, 3.2vh, 0.95rem) !important;
     line-height: 1.55 !important;
     white-space: nowrap !important;
+  }
+
+  .letter-wrapper {
+    gap: 6px !important;
+    font-size: clamp(0.68rem, 2.5vh, 0.85rem) !important;
+    line-height: 1.45 !important;
+  }
+  .letter-greeting {
+    font-size: clamp(0.75rem, 2.8vh, 0.95rem) !important;
+  }
+  .letter-subnames {
+    padding-left: 12px !important;
+    font-size: clamp(0.65rem, 2.3vh, 0.82rem) !important;
+    line-height: 1.4 !important;
+  }
+  .letter-body {
+    gap: 4px !important;
+    font-size: clamp(0.66rem, 2.4vh, 0.82rem) !important;
+    line-height: 1.4 !important;
+  }
+  .letter-signature {
+    margin-top: 2px !important;
+    font-size: clamp(0.65rem, 2.3vh, 0.8rem) !important;
   }
 
   .stage-panel {
